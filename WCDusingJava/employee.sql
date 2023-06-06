@@ -1,0 +1,9 @@
+CREATE DATABASE employees;
+CREATE TABLE employee (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(255) NOT NULL,
+  birthday DATE NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  position VARCHAR(255) NOT NULL,
+  department VARCHAR(255) NOT NULL
+);
