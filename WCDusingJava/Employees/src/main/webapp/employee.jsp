@@ -4,7 +4,7 @@
     <title>Add Employee</title>
 </head>
 <body>
-    <form action="add_employee.jsp" method="post">
+    <form action="employees" method="post">
         <label for="full_name">Full Name:</label>
         <input type="text" id="full_name" name="full_name" required><br>
 

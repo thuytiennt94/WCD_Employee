@@ -13,7 +13,7 @@ import java.util.List;
 
 @WebServlet("/employees")
 public class EmployeeServlet extends HttpServlet {
-    EmployeeDao employeeDao;
+    private EmployeeDao employeeDao;
 
     @Override
     public void init() throws ServletException {
@@ -28,7 +28,7 @@ public class EmployeeServlet extends HttpServlet {
                 getList(req,resp);
                 break;
             case "add":
-                createUserForm(req,resp);
+                addEmployee(req,resp);
                 break;
             default:
                 getList(req,resp);
@@ -37,10 +37,14 @@ public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        createEmpoyee(resp, req);
+        createEmployee(resp, req);
     }
 
-    private void createEmpoyee(HttpServletResponse resp, HttpServletRequest req) throws IOException , ServletException{
+    private void addEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("employee.jsp").forward(request, response);
+    }
+
+    private void createEmployee(HttpServletResponse resp, HttpServletRequest req) throws IOException , ServletException{
         String fullname = req.getParameter("fullname");
         String birthday = req.getParameter("birthday");
         String address = req.getParameter("address");
@@ -53,8 +57,8 @@ public class EmployeeServlet extends HttpServlet {
 
     private void getList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            List<EmployeeEntity> listUser = employeeDao.getAllEmployee();
-            req.setAttribute("listUser", listUser);
+            List<EmployeeEntity> list = employeeDao.getAllEmployee();
+            req.setAttribute("list", list);
             req.getRequestDispatcher("user/listEmployee.jsp").forward(req,resp);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
@@ -62,14 +66,4 @@ public class EmployeeServlet extends HttpServlet {
 
     }
 
-    private void createUserForm(HttpServletRequest req, HttpServletResponse resp){
-        try {
-            EmployeeEntity employees = new EmployeeEntity();
-            req.setAttribute("employees", employees);
-            req.setAttribute("action","add");
-            req.getRequestDispatcher("employee.jsp").forward(req,resp);
-        } catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
 }
