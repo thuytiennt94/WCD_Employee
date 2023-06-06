@@ -55,7 +55,7 @@ public class EmployeeServlet extends HttpServlet {
         try {
             List<EmployeeEntity> listUser = employeeDao.getAllEmployee();
             req.setAttribute("listUser", listUser);
-            req.getRequestDispatcher("user/listUser.jsp").forward(req,resp);
+            req.getRequestDispatcher("user/listEmployee.jsp").forward(req,resp);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
         }
